@@ -43,6 +43,11 @@ Sample Input-2:
 ---------------
 6
 3 2 4 0 5 1
+2 3 4
+
+Sample Output-3:
+----------------
+1
 
 Sample Output-2:
 ----------------
@@ -51,12 +56,7 @@ Sample Output-2:
 Sample Input-3:
 ---------------
 5
-0 1 2 3 4
-
-Sample Output-3:
-----------------
-1
-
+0 1 
 
 
 import java.io.*;
