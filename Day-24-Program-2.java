@@ -55,11 +55,13 @@ class P2{
             leftMax = Math.max(leftMax, arr[left]);
             
             if(leftMax < rightMax){
-                ans += Math.max(0,leftMax - arr[left]);
+//                 ans += Math.max(0,leftMax - arr[left]);
+	    	ans += rightMax - arr[right];
                 left++;
             }
             else if(rightMax <= leftMax){
-                ans += Math.max(0,rightMax - arr[right]);
+//                 ans += Math.max(0,rightMax - arr[right]);
+		ans += rightMax - arr[right];
                 right--;
             }
         }
