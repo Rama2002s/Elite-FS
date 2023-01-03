@@ -48,49 +48,48 @@ Explanation
 #include <bits/stdc++.h>
 using namespace std;
 
-int eval(int a, char op, int b){
-    if(op == '+')
-        return a + b;
-    if(op == '-')
-        return a - b;
-    if(op == '*')
-        return a * b;
-    if(op == '/' && b != 0)
-        return a / b;
-}
-vector<int> evalAll(string &s, int low, int high){
-    vector<int> result;
-    
-    if(low == high){
-        result.push_back(s[low] - '0');
-        return result;
+map<string,vector<int>> memo;
+
+vector<int> evalAll(string &s){
+    if(memo.find(s) != memo.end()){
+        return memo[s];
     }
-    
-    if(low == high - 2){
-        int temp = eval(s[low] - '0' , s[low + 1], s[low + 2] - '0');
-        result.push_back(temp);
-        return result;
-    }
-    
-    for (int i = low + 1; i < high; i = i + 2) {
-        vector<int> leftAns = evalAll(s, low, i - 1);
-        vector<int> rightAns = evalAll(s, i + 1, high);
-        
-        for (int l1 = 0; l1 < leftAns.size(); l1++) {
-            for (int l2 = 0; l2 < rightAns.size(); l2++) {
-                int ans = eval(leftAns[l1],s[i],rightAns[l2]);
-                result.push_back(ans);
+    vector<int> leftAns, rightAns, result;
+    for (int i = 0; i < s.size(); i++) {
+        if(s[i] == '+' || s[i] == '-' || s[i] == '*' || s[i] == '/'){
+            string leftStr = s.substr(0,i);
+            string rightStr = s.substr(i+1);
+            leftAns = evalAll(leftStr);
+            rightAns = evalAll(rightStr);
+        }
+        for(int a : leftAns){
+            for(int b : rightAns){
+                if(s[i] == '+'){
+                    result.push_back(a + b);
+                }
+                else if(s[i] == '-'){
+                    result.push_back(a - b);
+                }
+                if(s[i] == '*'){
+                    result.push_back(a * b);
+                }
+                if(s[i] == '/' && b != 0){
+                    result.push_back(a / b);
+                }
             }
         }
     }
+    if(!result.size())
+        result.push_back(stoi(s));
+        memo[s] = result;
+        return result;
     
-    return result;
 }
 int main(){
     string s;
     cin >> s;
     int len = s.size();
-    vector<int> finalAns = evalAll(s,0,len - 1);
+    vector<int> finalAns = evalAll(s);
     int l = finalAns.size();
     sort(finalAns.begin(), finalAns.end());
     for (int i = 0; i < finalAns.size(); i++) {
@@ -98,8 +97,6 @@ int main(){
     }
     
 }
-
-
 //Java code converted to c++
 
 #include <iostream>
