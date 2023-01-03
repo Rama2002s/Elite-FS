@@ -51,9 +51,11 @@ using namespace std;
 map<string,vector<int>> memo;
 
 vector<int> evalAll(string &s){
+//     if(memo.count(s) > 0){
     if(memo.find(s) != memo.end()){
         return memo[s];
     }
+// }
     vector<int> leftAns, rightAns, result;
     for (int i = 0; i < s.size(); i++) {
         if(s[i] == '+' || s[i] == '-' || s[i] == '*' || s[i] == '/'){
