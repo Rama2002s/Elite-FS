@@ -32,6 +32,14 @@ Explanation:
 "p", "p", "p", "p", "pp", "ppp", "pppp", "pp", "ppp", "pp"  are 
 palindromic substrings of given string. 
 
+    
+    
+    
+    
+    
+//Solution using dp
+    
+    
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -69,6 +77,36 @@ int main(){
     }
     cout << count;
     return 0;
+}
+
+
+
+
+//Solution using 2 pointers (rolling window)
+
+
+int main(){
+    string s;
+    cin >> s;
+    int count = 0;
+    for (int i = 0; i < s.size(); i++) {
+        int left , right;
+        left = i;
+        right = i;
+        while(left >= 0 and right < s.size() and s[left] == s[right]){
+            count++;
+            left--;
+            right++;
+        }
+        left = i;
+        right = i + 1;
+        while(left >= 0 and right < s.size() and s[left] == s[right]){
+            count++;
+            left--;
+            right++;
+        }
+    }
+    cout << count;
 }
 
 
